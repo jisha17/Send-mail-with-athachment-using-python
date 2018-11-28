@@ -3,18 +3,17 @@
 save the file as master.xlsx (each .csv file is separate sheet in the master.xlsx file)"""
 
 import pandas as pd
-import xlsxwriter
 
-df1=pd.read_csv('C:/Users/jisha/Flight Network/Logistics_lookup.csv',engine='python')
+df1=pd.read_csv('C:/Users/jisha/Flight Network/Logistics_lookup.csv',engine='python') #converting csv to dataframe using pandas
 df2=pd.read_csv('C:/Users/jisha/Flight Network/FuelConsumption.csv',engine='python')
 df3=pd.read_csv('C:/Users/jisha/Flight Network/rate_sheet.csv',engine='python')
 df4=pd.read_csv('C:/Users/jisha/Flight Network/melb_data.csv',engine='python')
 df5=pd.read_csv('C:/Users/jisha/Flight Network/ImportStaff.csv',engine='python')
 df6=pd.read_csv('C:/Users/jisha/Flight Network/ImportUsers.csv',engine='python')
 
-writer = pd.ExcelWriter('C:/Users/jisha/Flight Network/master.xlsx')
+writer = pd.ExcelWriter('C:/Users/jisha/Flight Network/master.xlsx') #creating an excel file
 
-df1.to_excel(writer,sheet_name='Sheet1',index=False)
+df1.to_excel(writer,sheet_name='Sheet1',index=False) #converting the dataframe to xlsx file
 df2.to_excel(writer,sheet_name='Sheet2',index=False)
 df3.to_excel(writer,sheet_name='Sheet3',index=False)
 df4.to_excel(writer,sheet_name='Sheet4',index=False)
@@ -26,23 +25,25 @@ print("Done")
 writer.save()
 writer.close()
 
-
 ###----------------------------------------------------##(2)##--------------------------------------------------------------###
 
 """Convert the selected sheet into PDF format and save this PDF file as Mastersheet2.pdf"""
 
 import pdfkit
 
-df_master=pd.read_excel('C:/Users/jisha/Flight Network/master.xlsx','Sheet2')
-df_master.to_html('C:/Users/jisha/Flight Network/mastersheet2.html',index=False)
+df_master=pd.read_excel('C:/Users/jisha/Flight Network/master.xlsx','Sheet2') #reading from excel and converting to dataframe
+df_master.to_html('C:/Users/jisha/Flight Network/mastersheet2.html',index=False) #converting dataframe to html
 
-path_wkthmltopdf = r'C:\Users\jisha\Anaconda3\wkhtmltopdf\bin\wkhtmltopdf.exe'
-config = pdfkit.configuration(wkhtmltopdf=path_wkthmltopdf)
+path_wkthmltopdf = r'C:\Users\jisha\Anaconda3\wkhtmltopdf\bin\wkhtmltopdf.exe' #path to wkhtmltopdf.exe
+config = pdfkit.configuration(wkhtmltopdf=path_wkthmltopdf)  #configuring wkhtmltopdf.exe with pdfkit
+#converting html to pdf using pdfkit
 pdfkit.from_url("C:/Users/jisha/Flight Network/mastersheet2.html", "C:/Users/jisha/Flight Network/mastersheet2.pdf", configuration=config)
+
+print("Done")
 
 ###----------------------------------------------------##(3)##--------------------------------------------------------------###
 
-"""Construct an email and attached this newly formed pdf file and
+""""Construct an email and attached this newly formed pdf file and
 send an email to vipul.rodrigues@flightnetwork.com."""
 
 import smtplib 
@@ -51,64 +52,38 @@ from email.mime.text import MIMEText
 from email.mime.base import MIMEBase 
 from email import encoders 
    
-fromaddr = "from@gmail.com"
-toaddr = 'to@gmail.com'
+fromaddr = "jishadaniel17061994@gmail.com"
+toaddr = 'vipul.rodrigues@flightnetwork.com'
    
-# instance of MIMEMultipart 
-msg = MIMEMultipart() 
-  
-# storing the senders email address   
-msg['From'] = fromaddr 
-  
-# storing the receivers email address  
-msg['To'] = toaddr 
-  
-# storing the subject  
-msg['Subject'] = "Online assignment_Data Analyst_Jishachinnu Daniel"
+
+msg = MIMEMultipart()  # instance of MIMEMultipart    
+msg['From'] = fromaddr # storing the senders email address
+msg['To'] = toaddr # storing the receivers email address  
+msg['Subject'] = "Online assignment_Data Analyst_Jishachinnu Daniel" # storing the subject  
   
 # string to store the body of the mail 
 body = """Hi, \n\nI have completed the online assignment as per the requirement. Please find attached pdf as mentioned. 
 \nAlso find below repository link where snippet of code is available.
 \nhttps://github.com/jisha17/Send-mail-with-athachment-using-python
-\n\n Regards,\nJishachinnu Daniel \n+91-Mobile No"""
+\n\n Regards,\nJishachinnu Daniel \n+91-9930583963"""
   
-# attach the body with the msg instance 
-msg.attach(MIMEText(body, 'plain')) 
-  
-# open the file to be sent  
-filename = "C:/Users/jisha/Flight Network/mastersheet2.pdf"
-attachment = open("C:/Users/jisha/Flight Network/mastersheet2.pdf", "rb") 
-  
-# instance of MIMEBase and named as p 
-p = MIMEBase('application', 'octet-stream') 
-  
-# To change the payload into encoded form 
-p.set_payload((attachment).read()) 
-  
-# encode into base64 
-encoders.encode_base64(p) 
-   
-p.add_header('Content-Disposition', "attachment; filename= %s" % filename) 
-  
-# attach the instance 'p' to instance 'msg' 
-msg.attach(p) 
-  
-# creates SMTP session 
-s = smtplib.SMTP('smtp.gmail.com', 587) 
+msg.attach(MIMEText(body, 'plain')) # attach the body with the msg instance 
  
+filename = "C:/Users/jisha/Flight Network/mastersheet2.pdf"
+attachment = open("C:/Users/jisha/Flight Network/mastersheet2.pdf", "rb") # open the file to be sent 
+  
+p = MIMEBase('application', 'octet-stream') # instance of MIMEBase and named as p   
+p.set_payload((attachment).read()) # To change the payload into encoded form   
+encoders.encode_base64(p) # encode into base64 
+p.add_header('Content-Disposition', "attachment; filename= %s" % filename)  
+msg.attach(p) # attach the instance 'p' to instance 'msg'
+  
 
-# start TLS for security 
-s.starttls() 
-  
-# Authentication 
-s.login(fromaddr, "password") 
-  
-# Converts the Multipart msg into a string 
-text = msg.as_string() 
-  
-# sending the mail 
-s.sendmail(fromaddr, toaddr, text) 
+s = smtplib.SMTP('smtp.gmail.com', 587) # creates SMTP session 
+s.starttls() # start TLS for security 
+s.login(fromaddr, "ch@ngep@$$word1706")# Authentication  
+text = msg.as_string() # Converts the Multipart msg into a string 
+s.sendmail(fromaddr, toaddr, text) # sending the mail 
   
 print("Email Sent")
-# terminating the session 
-s.quit() 
+s.quit() # terminating the session 

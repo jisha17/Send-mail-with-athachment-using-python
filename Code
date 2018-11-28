@@ -67,7 +67,7 @@ msg['To'] = toaddr
 msg['Subject'] = "Online assignment_Data Analyst_Jishachinnu Daniel"
   
 # string to store the body of the mail 
-body = """Hi, \n\nI have completed the online assignment as per the requirement. Please find attached pdf as required. 
+body = """Hi, \n\nI have completed the online assignment as per the requirement. Please find attached pdf as mentioned. 
 \nAlso find below repository link where snippet of code is available.
 \nhttps://github.com/jisha17/Send-mail-with-athachment-using-python
 \n\n Regards,\nJishachinnu Daniel \n+91-Mobile No"""

@@ -65,7 +65,7 @@ msg['Subject'] = "Online assignment_Data Analyst_Jishachinnu Daniel" # storing t
 body = """Hi, \n\nI have completed the online assignment as per the requirement. Please find attached pdf as mentioned. 
 \nAlso find below repository link where snippet of code is available.
 \nhttps://github.com/jisha17/Send-mail-with-athachment-using-python
-\n\n Regards,\nJishachinnu Daniel \n+91-9930583963"""
+\n\n Regards,\nJishachinnu Daniel \n+91-mobile no"""
   
 msg.attach(MIMEText(body, 'plain')) # attach the body with the msg instance 
  
@@ -81,7 +81,7 @@ msg.attach(p) # attach the instance 'p' to instance 'msg'
 
 s = smtplib.SMTP('smtp.gmail.com', 587) # creates SMTP session 
 s.starttls() # start TLS for security 
-s.login(fromaddr, "ch@ngep@$$word1706")# Authentication  
+s.login(fromaddr, "put your password")# Authentication  
 text = msg.as_string() # Converts the Multipart msg into a string 
 s.sendmail(fromaddr, toaddr, text) # sending the mail 
   

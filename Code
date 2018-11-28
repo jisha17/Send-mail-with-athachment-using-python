@@ -8,15 +8,24 @@ import xlsxwriter
 df1=pd.read_csv('C:/Users/jisha/Flight Network/Logistics_lookup.csv',engine='python')
 df2=pd.read_csv('C:/Users/jisha/Flight Network/FuelConsumption.csv',engine='python')
 df3=pd.read_csv('C:/Users/jisha/Flight Network/rate_sheet.csv',engine='python')
+df4=pd.read_csv('C:/Users/jisha/Flight Network/melb_data.csv',engine='python')
+df5=pd.read_csv('C:/Users/jisha/Flight Network/ImportStaff.csv',engine='python')
+df6=pd.read_csv('C:/Users/jisha/Flight Network/ImportUsers.csv',engine='python')
 
 writer = pd.ExcelWriter('C:/Users/jisha/Flight Network/master.xlsx')
 
 df1.to_excel(writer,sheet_name='Sheet1',index=False)
 df2.to_excel(writer,sheet_name='Sheet2',index=False)
 df3.to_excel(writer,sheet_name='Sheet3',index=False)
+df4.to_excel(writer,sheet_name='Sheet4',index=False)
+df5.to_excel(writer,sheet_name='Sheet5',index=False)
+df6.to_excel(writer,sheet_name='Sheet6',index=False)
+
+print("Done")
 
 writer.save()
 writer.close()
+
 
 ###----------------------------------------------------##(2)##--------------------------------------------------------------###
 
@@ -42,8 +51,8 @@ from email.mime.text import MIMEText
 from email.mime.base import MIMEBase 
 from email import encoders 
    
-fromaddr = "jishadaniel17061994@gmail.com"
-toaddr = 'daniel_jisha94@yahoo.co.in'
+fromaddr = "from@gmail.com"
+toaddr = 'to@gmail.com'
    
 # instance of MIMEMultipart 
 msg = MIMEMultipart() 
@@ -60,7 +69,7 @@ msg['Subject'] = "Online assignment_Data Analyst_Jishachinnu Daniel"
 # string to store the body of the mail 
 body = """Hi, \n\nI have completed the online assignment as per the requirement. Please find attached pdf as required. 
 \nAlso find below repository link where snippet of code is available.
-\n\n Regards,\nJishachinnu Daniel \n+91-9930583963"""
+\n\n Regards,\nJishachinnu Daniel \n+91-Mobile No"""
   
 # attach the body with the msg instance 
 msg.attach(MIMEText(body, 'plain')) 
@@ -91,7 +100,7 @@ s = smtplib.SMTP('smtp.gmail.com', 587)
 s.starttls() 
   
 # Authentication 
-s.login(fromaddr, "ch@ngep@$$word1706") 
+s.login(fromaddr, "password") 
   
 # Converts the Multipart msg into a string 
 text = msg.as_string() 
